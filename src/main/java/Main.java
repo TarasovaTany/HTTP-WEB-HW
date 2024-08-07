@@ -9,19 +9,20 @@ public class Main {
 
         // добавление хендлеров (обработчиков)
         server.addHandler("GET", "/messages", (request, responseStream) -> {
-            try {
-                server.responseWithoutContent(responseStream, "404", "Not found");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            server.responseWithoutContent(responseStream, "404", "Not found");
         });
 
         server.addHandler("POST", "/messages", (request, responseStream) ->
-                server.responseWithoutContent(responseStream, "503", "Service Unavailable"));
+            server.responseWithoutContent(responseStream, "503", "Service Unavailable"));
 
         server.addHandler("GET", "/messages", (request, outputStream) ->
-                server.responseWithoutContent(outputStream, "index.html"));
-
+        {
+            try {
+                server.defaultHandler(outputStream, "index.html");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         server.start();
     }
 }
