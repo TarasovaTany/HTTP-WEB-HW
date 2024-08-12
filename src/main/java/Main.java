@@ -13,16 +13,16 @@ public class Main {
         });
 
         server.addHandler("POST", "/messages", (request, responseStream) ->
-            server.responseWithoutContent(responseStream, "503", "Service Unavailable"));
+                server.responseWithoutContent(responseStream, "503", "Service Unavailable"));
 
-        server.addHandler("GET", "/messages", (request, outputStream) ->
-        {
-            try {
+        server.addHandler("GET", "/messages", (request, outputStream) -> {
+                try {
                 server.defaultHandler(outputStream, "index.html");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+                    } catch (IOException e) {
+                e.printStackTrace();
+
+        }
+    });
         server.start();
     }
 }
